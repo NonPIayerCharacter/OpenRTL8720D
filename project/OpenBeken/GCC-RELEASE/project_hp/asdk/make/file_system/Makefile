@@ -16,11 +16,11 @@ OBJS =
 # Define the Rules to build the core targets
 all: CORE_TARGETS
 #	make -C dct all
-	make -C fatfs all
-	make -C littlefs all
-	make -C kv all
+#	make -C fatfs all
+#	make -C littlefs all
+#	make -C kv all
 ifeq ($(CONFIG_BT_EN), y)
-	make -C ftl all
+#	make -C ftl all
 endif
 
 #*****************************************************************************#

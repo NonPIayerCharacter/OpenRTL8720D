@@ -21,8 +21,8 @@ OBJS =
 #                        RULES TO GENERATE TARGETS                            #
 #*****************************************************************************#
 all: CORE_TARGETS
-	make -C MQTTClient all
-	make -C MQTTPacket all
+#	make -C MQTTClient all
+#	make -C MQTTPacket all
 #*****************************************************************************#
 #              GENERATE OBJECT FILE
 #*****************************************************************************#
@@ -32,7 +32,7 @@ CORE_TARGETS: $(OBJS)
 #              CLEAN GENERATED FILES                                          #
 #*****************************************************************************#
 clean:
-	make -C MQTTClient clean
-	make -C MQTTPacket clean
+#	make -C MQTTClient clean
+#	make -C MQTTPacket clean
 
 -include $(DEPS)

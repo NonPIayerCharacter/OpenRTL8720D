@@ -1,0 +1,10 @@
+*.dep
+*.ewt
+*.d
+*.o
+*.su
+*.s
+tools
+libsrc
+*.i
+*.map

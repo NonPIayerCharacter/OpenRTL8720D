@@ -1,0 +1,10 @@
+project_hp/asdk/image
+project_hp/asdk/ram_size.txt
+project_hp/asdk/obj_list.txt
+project_hp/asdk/build/rlx8721d.ld
+project_hp/asdk/lib/application/lib_user.a
+project_lp/asdk/image
+project_lp/asdk/ram_size.txt
+project_lp/asdk/build/rlx8721d.ld
+project_lp/asdk/gnu_utility/gnu_script/acut_loader/flash_loader_ram_1.bin
+project_lp/asdk/gnu_utility/gnu_script/acut_loader/target_FPGA.axf

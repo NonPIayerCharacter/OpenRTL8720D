@@ -456,6 +456,7 @@ uint8_t LwIP_DHCP(uint8_t idx, uint8_t dhcp_state)
 				iptab[3] = (uint8_t)(IPaddress);
 				printf("\n\rInterface %d IP address : %d.%d.%d.%d", idx, iptab[3], iptab[2], iptab[1], iptab[0]);
 
+				wifi_indication(WIFI_EVENT_STA_GOT_IP, NULL, 0, 0);
 #if defined(CONFIG_FAST_DHCP) && CONFIG_FAST_DHCP
 #if LWIP_VERSION_MAJOR >= 2
 				dhcp = ((struct dhcp*)netif_get_client_data(pnetif, LWIP_NETIF_CLIENT_DATA_INDEX_DHCP));

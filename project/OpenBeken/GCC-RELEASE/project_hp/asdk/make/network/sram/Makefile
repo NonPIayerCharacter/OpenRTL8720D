@@ -58,6 +58,7 @@ OBJS +=		\
 		$(LWIPDIR)/src/api/netdb.o \
 		$(LWIPDIR)/src/api/api_lib.o \
 		$(LWIPDIR)/src/api/netifapi.o \
+		$(LWIPDIR)/src/apps/mqtt/mqtt.o
 
 #ifeq ($(CONFIG_HIGH_TP),y)
 #OBJS += $(OBJS_CONFIG) 

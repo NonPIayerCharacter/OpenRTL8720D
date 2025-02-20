@@ -1,63 +1,43 @@
 
 include $(MAKE_INCLUDE_GEN)
-#IFLAGS               += -I$(BASEDIR)/component/common/network/libcoap/include
-#IFLAGS               += -I$(BASEDIR)/component/common/application/mqtt/MQTTClient
-#IFLAGS               += -I$(BASEDIR)/component/common/application/mqtt/MQTTPacket
 
 .PHONY: all clean
 
 #*****************************************************************************#
 #                               VARIABLES	                              #
 #*****************************************************************************#
-DIR = $(BASEDIR)/component/common/api/at_cmd
+DIR = $(SRCDIR)
+
+MODULE_IFLAGS = -I$(DIR)./
 
 vpath %.c $(DIR)
-
 #*****************************************************************************#
 #                               Source FILE LIST                              #
 #*****************************************************************************#
-#CSRC +=	$(DIR)/atcmd_sys.c \
-#		$(DIR)/atcmd_wifi.c \
-#		$(DIR)/atcmd_mqtt.c \
-#		$(DIR)/atcmd_lwip.c \
-#		$(DIR)/log_service.c \
-#		$(DIR)/atcmd_mp.c \
-#		$(DIR)/atcmd_mp_ext2.c \
+CSRC = $(DIR)/main.c
 
-ifeq ($(CONFIG_BT_EN), y)
-#CSRC += $(DIR)/atcmd_bt.c
-endif	
-
-ifeq ($(CONFIG_LINKKIT_AWSS), y)
-#CSRC += $(DIR)/atcmd_linkkit.c
-endif	
 #*****************************************************************************#
 #                               Object FILE LIST                              #
 #*****************************************************************************#
 OBJS = $(notdir $(CSRC:.c=.o))
 
 #*****************************************************************************#
-#                               Include Dependency                            #
-#*****************************************************************************#
--include $(OBJS:.o=.d)
-
-
-#*****************************************************************************#
 #                        RULES TO GENERATE TARGETS                            #
 #*****************************************************************************#
-all: CORE_TARGETS COPY_RAM_OBJS
+all: CLEAN_OBJS CORE_TARGETS COPY_RAM_OBJS
+	
 #*****************************************************************************#
 #              GENERATE OBJECT FILE 
 #*****************************************************************************#
 CORE_TARGETS: $(OBJS)
 
 #*****************************************************************************#
-#              CLEAN GENERATED FILES                                          #
+#                        RULES TO CLEAN TARGETS                               #
 #*****************************************************************************#
-clean: CLEAN_OBJS 
+clean: CLEAN_OBJS
 	$(REMOVE) *.o
 	$(REMOVE) *.i
 	$(REMOVE) *.s
 	$(REMOVE) *.d
 
--include $(DEPS)
+-include $(DEPS)	

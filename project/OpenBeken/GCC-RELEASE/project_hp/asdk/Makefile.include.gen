@@ -132,24 +132,24 @@ CONFIG_TOOLCHAIN_LD_GCC=y
 #TOOL_PREFIX = arm-elf-eabi-
 TOOL_PREFIX = arm-none-eabi-
 
-CC = $(tool_dir)/$(TOOL_PREFIX)gcc
-AS = $(tool_dir)/$(TOOL_PREFIX)as
-AR = $(tool_dir)/$(TOOL_PREFIX)ar
-#LD = $(tool_dir)/$(TOOL_PREFIX)ld
-LD = $(tool_dir)/$(TOOL_PREFIX)gcc
-LD_ROM = $(tool_dir)/$(TOOL_PREFIX)ld
+CC = $(TOOL_PREFIX)gcc
+AS = $(TOOL_PREFIX)as
+AR = $(TOOL_PREFIX)ar
+#LD = $(TOOL_PREFIX)ld
+LD = $(TOOL_PREFIX)gcc
+LD_ROM = $(TOOL_PREFIX)ld
 
-CC_SIZE = $(tool_dir)/$(TOOL_PREFIX)size
-OBJDUMP = $(tool_dir)/$(TOOL_PREFIX)objdump
-FROMELF = $(tool_dir)/$(TOOL_PREFIX)objcopy
-STRIP   = $(tool_dir)/$(TOOL_PREFIX)strip
-NM	= $(tool_dir)/$(TOOL_PREFIX)nm
+CC_SIZE = $(TOOL_PREFIX)size
+OBJDUMP = $(TOOL_PREFIX)objdump
+FROMELF = $(TOOL_PREFIX)objcopy
+STRIP   = $(TOOL_PREFIX)strip
+NM	= $(TOOL_PREFIX)nm
 
 #GDB = $(tool_dir)/asdk-elf-gdb
 #READELF =  $(tool_dir)/asdk-elf-readelf
-GDB = $(tool_dir)/arm-none-eabi-gdb
-GDBR = $(ASDK_TOOLCHAIN_R)/bin/arm-none-eabi-gdb
-READELF = $(tool_dir)/arm-none-eabi-readelf
+GDB = $(TOOL_PREFIX)gdb
+GDBR = $(TOOL_PREFIX)gdb
+READELF = $(TOOL_PREFIX)readelf
 
 REMOVE    = -rm -f
 REMOVEDIR = rm -rf
@@ -383,15 +383,15 @@ GLOBAL_CFLAGS += -mcmse
 GLOBAL_CFLAGS += -mfloat-abi=hard
 GLOBAL_CFLAGS += -mfpu=fpv5-sp-d16
 
-GLOBAL_CFLAGS += -g
-GLOBAL_CFLAGS += -gdwarf-3
+GLOBAL_CFLAGS += -g0
+#GLOBAL_CFLAGS += -gdwarf-3
 GLOBAL_CFLAGS += -nostartfiles
 GLOBAL_CFLAGS += -nodefaultlibs
 GLOBAL_CFLAGS += -nostdlib
 GLOBAL_CFLAGS += -Os
 GLOBAL_CFLAGS += -D__FPU_PRESENT
 
-GLOBAL_CFLAGS += -gdwarf-3
+#GLOBAL_CFLAGS += -gdwarf-3
 GLOBAL_CFLAGS += -fstack-usage
 GLOBAL_CFLAGS += -fdata-sections
 GLOBAL_CFLAGS += -ffunction-sections
@@ -412,6 +412,7 @@ GLOBAL_CFLAGS += -MMD -MP
 #GLOBAL_CFLAGS += -specs nosys.specs 
 #GLOBAL_CFLAGS += -fno-short-enums
 GLOBAL_CFLAGS += -Wextra
+GLOBAL_CFLAGS += -Wno-undef
 
 GLOBAL_CFLAGS += $(IFLAGS)
 GLOBAL_CFLAGS += -DCONFIG_PLATFORM_8721D

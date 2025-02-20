@@ -17,7 +17,8 @@ extern "C" {
 #include <platform/platform_stdlib.h>
 #include "platform_opts.h"
 #define WIFI_LOGO_CERTIFICATION_CONFIG 0    //for ping 10k test buffer setting
-    
+
+#define LWIP_NETIF_HOSTNAME 1
 /**
  * SYS_LIGHTWEIGHT_PROT==1: if you want inter-task protection for certain
  * critical regions during buffer allocation, deallocation and memory
@@ -30,8 +31,8 @@ extern "C" {
 #define LWIP_COMPAT_MUTEX       1
 
 #define ETHARP_TRUST_IP_MAC     0
-#define IP_REASSEMBLY           1
-#define IP_FRAG                 1
+#define IP_REASSEMBLY           0
+#define IP_FRAG                 0
 #define ARP_QUEUEING            0
 
 /**
@@ -61,7 +62,7 @@ a lot of data that needs to be copied, this should be set high. */
 #elif defined(CONFIG_PLATFORM_8721D)
 	#define MEM_SIZE    			  (7*1024)
 #else
-    #define MEM_SIZE                (5*1024)
+    #define MEM_SIZE                (8*1024)
 #endif
 
 /* MEMP_NUM_PBUF: the number of memp struct pbufs. If the application

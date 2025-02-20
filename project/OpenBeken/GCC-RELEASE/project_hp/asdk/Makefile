@@ -552,23 +552,24 @@ endif
 #*****************************************************************************#
 
 build_info.h:
-	@echo \#define UTS_VERSION \"`date +%Y/%m/%d-%T`\" > .ver
-	@echo \#define RTL_FW_COMPILE_TIME \"`date +%Y/%m/%d-%T`\" >> .ver
-	@echo \#define RTL_FW_COMPILE_DATE \"`date +%Y/%m/%d`\" >> .ver
-	@echo \#define RTL_FW_COMPILE_BY \"`id -u -n`\" >> .ver
-	@echo \#define RTL_FW_COMPILE_HOST \"`$(HOSTNAME_APP)`\" >> .ver
-	@if [ -x /bin/dnsdomainname ]; then \
-		echo \#define RTL_FW_COMPILE_DOMAIN \"`dnsdomainname`\"; \
-	elif [ -x /bin/domainname ]; then \
-		echo \#define RTL_FW_COMPILE_DOMAIN \"`domainname`\"; \
-	else \
-		echo \#define RTL_FW_COMPILE_DOMAIN ; \
-	fi >> .ver
-ifeq ($(CONFIG_TOOLCHAIN_ARM_GCC), y)
-	@echo \#define RTL_FW_COMPILER \"ARM_GCC\" >> .ver
-else
-	@echo \#define RTL_FW_COMPILER \"`$(CC) $(CFLAGS) -v 2>&1 | tail -1`\" >> .ver
-endif
+	@touch .ver
+#	@echo \#define UTS_VERSION \"`date +%Y/%m/%d-%T`\" > .ver
+#	@echo \#define RTL_FW_COMPILE_TIME \"`date +%Y/%m/%d-%T`\" >> .ver
+#	@echo \#define RTL_FW_COMPILE_DATE \"`date +%Y/%m/%d`\" >> .ver
+#	@echo \#define RTL_FW_COMPILE_BY \"`id -u -n`\" >> .ver
+#	@echo \#define RTL_FW_COMPILE_HOST \"`$(HOSTNAME_APP)`\" >> .ver
+#	@if [ -x /bin/dnsdomainname ]; then \
+#		echo \#define RTL_FW_COMPILE_DOMAIN \"`dnsdomainname`\"; \
+#	elif [ -x /bin/domainname ]; then \
+#		echo \#define RTL_FW_COMPILE_DOMAIN \"`domainname`\"; \
+#	else \
+#		echo \#define RTL_FW_COMPILE_DOMAIN ; \
+#	fi >> .ver
+#ifeq ($(CONFIG_TOOLCHAIN_ARM_GCC), y)
+#	@echo \#define RTL_FW_COMPILER \"ARM_GCC\" >> .ver
+#else
+#	@echo \#define RTL_FW_COMPILER \"`$(CC) $(CFLAGS) -v 2>&1 | tail -1`\" >> .ver
+#endif
 	@mv -f .ver $(INCDIR)/$@
 
 

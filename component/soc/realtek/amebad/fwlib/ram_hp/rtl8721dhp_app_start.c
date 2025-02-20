@@ -171,7 +171,7 @@ void INT_HardFault_Patch_C(uint32_t mstack[], uint32_t pstack[], uint32_t lr_val
 		}
 	}
 
-	cm_backtrace_fault((uint32_t)(IsPstack ? pstack : mstack), lr_value);
+	//cm_backtrace_fault((uint32_t)(IsPstack ? pstack : mstack), lr_value);
 	while(1);
 }
 
@@ -469,9 +469,9 @@ extern void __libc_init_array(void);
 	app_init_debug();
 
 #if defined ( __GNUC__ )
-	cm_backtrace_init("target_img2", "HW v1.0", "SW v1.0");
+	//cm_backtrace_init("target_img2", "HW v1.0", "SW v1.0");
 #elif defined(__ICCARM__)
-	cm_backtrace_init("km4_application.dbg", "HW v1.0", "SW v1.0");
+	//cm_backtrace_init("km4_application.dbg", "HW v1.0", "SW v1.0");
 #endif
 
 	main(); /* project/xxxx/src/main.c */
