@@ -544,7 +544,7 @@ COPY_ROM_OBJS:
 	echo "=============================================================" \
 	       >> $(ROOTDIR)/rom_size.txt;\
 	$(CC_SIZE) -t $(OBJS) $(ASM_OBJS) >> $(ROOTDIR)/rom_size.txt;\
-	for i in  $(OBJS) $(ASM_OBJS); do \
+	@for i in  $(OBJS) $(ASM_OBJS); do \
 		 $(COPY) -f  $$i $(BUILD_TARGET_ROM_FOLDER);\
 		done \
 
@@ -557,7 +557,7 @@ COPY_ROM_OBJS:
 #*****************************************************************************#
 RENAME_ROM_OBJS:
 	OBJ_LIST=$(ls *.o)
-	for obj_file in $(OBJS) $(ASM_OBJS); do \
+	@for obj_file in $(OBJS) $(ASM_OBJS); do \
 		$(FROMELF) --rename-section .rodata.str1.4=.rom.rodata.str1.4 $$obj_file $$obj_file; \
                 $(FROMELF) --rename-section .rodata.str1.1=.rom.rodata.str1.1 $$obj_file $$obj_file; \
                 $(FROMELF) --rename-section .rodata=.rom.rodata $$obj_file $$obj_file; \
@@ -565,20 +565,20 @@ RENAME_ROM_OBJS:
 
 RENAME_LOADER_OBJS:
 	OBJ_LIST=$(ls *.o)
-	for obj_file in $(OBJS) $(ASM_OBJS); do \
+	@for obj_file in $(OBJS) $(ASM_OBJS); do \
 		$(FROMELF) --rename-section .rodata.str1.4=.boot.rodata.str1.4 $$obj_file $$obj_file; \
 		$(FROMELF) --rename-section .rodata.str1.1=.boot.rodata.str1.1 $$obj_file $$obj_file; \
 	done \
 
 RENAME_CODE2SRAM:
 	OBJ_LIST=$(ls *.o)
-	for obj_file in $(OBJS) $(ASM_OBJS); do \
+	@for obj_file in $(OBJS) $(ASM_OBJS); do \
 		$(FROMELF) --rename-section .text=.image2.ram.text $$obj_file $$obj_file; \
 	done \
 
 NETWORK_RENAME_CODE2SRAM:
 	OBJ_LIST=$(ls *.o)
-	for obj_file in $(OBJS) $(ASM_OBJS); do \
+	@for obj_file in $(OBJS) $(ASM_OBJS); do \
 		$(FROMELF) --rename-section .text=.image2.net.ram.text $$obj_file $$obj_file; \
 	done \
 
@@ -600,17 +600,20 @@ endef
 #*****************************************************************************#
 
 %.o:%.c
-	$(CC) $(GLOBAL_CFLAGS) $(MODULE_IFLAGS) $<  -o $@
+	@echo "build $@"
+	@$(CC) $(GLOBAL_CFLAGS) $(MODULE_IFLAGS) $<  -o $@
 
 #*****************************************************************************#
 #              RULES TO GENERATE OBJECT FILE FROM .CPP FILE                   #
 #*****************************************************************************#
 %.o:%.cpp
-	$(CC) -ffunction-sections $(CPPFLAGS) $(MODULE_IFLAGS) $< -o $@
+	@echo "build $@"
+	@$(CC) -ffunction-sections $(CPPFLAGS) $(MODULE_IFLAGS) $< -o $@
 
 #*****************************************************************************#
 #              RULES TO GENERATE OBJECT FILE FROM .S FILE                     #
 #*****************************************************************************#
 
 %.o:%.S
-	$(CC) $(ASM_FLAGS) $< -o $@
+	@echo "build $@"
+	@$(CC) $(ASM_FLAGS) $< -o $@
