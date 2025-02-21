@@ -172,7 +172,8 @@ void INT_HardFault_Patch_C(uint32_t mstack[], uint32_t pstack[], uint32_t lr_val
 	}
 
 	//cm_backtrace_fault((uint32_t)(IsPstack ? pstack : mstack), lr_value);
-	while(1);
+	//while(1);
+	ota_platform_reset();
 }
 
 VOID
