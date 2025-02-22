@@ -51,33 +51,37 @@ extern "C" {
    byte alignment -> define MEM_ALIGNMENT to 2. */
 #define MEM_ALIGNMENT           4
 
+#define MAX_SOCKETS_TCP                 8
+#define MAX_LISTENING_SOCKETS_TCP       4
+#define MAX_SOCKETS_UDP                 4
 /* MEM_SIZE: the size of the heap memory. If the application will send
 a lot of data that needs to be copied, this should be set high. */
-#if WIFI_LOGO_CERTIFICATION_CONFIG
-    #define MEM_SIZE                (20*1024) //for ping 10k test
-#elif CONFIG_ETHERNET
-	#define MEM_SIZE				(6*1024)  //for iperf test
-#elif defined(CONFIG_HIGH_TP_TEST) && CONFIG_HIGH_TP_TEST
-    #define MEM_SIZE                (23*1024)
-#elif defined(CONFIG_PLATFORM_8721D)
-	#define MEM_SIZE    			  (7*1024)
-#else
-    #define MEM_SIZE                (8*1024)
-#endif
+//#if WIFI_LOGO_CERTIFICATION_CONFIG
+//    #define MEM_SIZE                (20*1024) //for ping 10k test
+//#elif CONFIG_ETHERNET
+//	#define MEM_SIZE				(6*1024)  //for iperf test
+//#elif defined(CONFIG_HIGH_TP_TEST) && CONFIG_HIGH_TP_TEST
+//    #define MEM_SIZE                (23*1024)
+//#elif defined(CONFIG_PLATFORM_8721D)
+//	#define MEM_SIZE    			  (7*1024)
+//#else
+//    #define MEM_SIZE                (8*1024)
+//#endif
 
+#define MEM_SIZE                       (12*1024)
 /* MEMP_NUM_PBUF: the number of memp struct pbufs. If the application
    sends a lot of data out of ROM (or other static memory), this
    should be set high. */
 #define MEMP_NUM_PBUF           100
 /* MEMP_NUM_UDP_PCB: the number of UDP protocol control blocks. One
    per active UDP "connection". */
-#define MEMP_NUM_UDP_PCB        6
+#define MEMP_NUM_UDP_PCB        MAX_SOCKETS_UDP
 /* MEMP_NUM_TCP_PCB: the number of simulatenously active TCP
    connections. */
-#define MEMP_NUM_TCP_PCB        10
+#define MEMP_NUM_TCP_PCB        MAX_SOCKETS_TCP
 /* MEMP_NUM_TCP_PCB_LISTEN: the number of listening TCP
    connections. */
-#define MEMP_NUM_TCP_PCB_LISTEN 5
+#define MEMP_NUM_TCP_PCB_LISTEN MAX_LISTENING_SOCKETS_TCP
 /* MEMP_NUM_TCP_SEG: the number of simultaneously queued TCP
    segments. */
 #ifdef CONFIG_HIGH_TP_TEST
@@ -89,8 +93,10 @@ a lot of data that needs to be copied, this should be set high. */
    timeouts. */
 #define MEMP_NUM_SYS_TIMEOUT    10
 
-#define MEMP_NUM_NETCONN        8
+//#define MEMP_NUM_NETCONN        8
 
+#define MEMP_NUM_NETCONN	(MAX_SOCKETS_TCP + \
+	MAX_LISTENING_SOCKETS_TCP + MAX_SOCKETS_UDP)
 /* ---------- Pbuf options ---------- */
 /* PBUF_POOL_SIZE: the number of buffers in the pbuf pool. */
 #if WIFI_LOGO_CERTIFICATION_CONFIG
@@ -175,6 +181,7 @@ a lot of data that needs to be copied, this should be set high. */
 
 /* ---------- SO_REUSE options --------- */
 #define SO_REUSE                        1
+#define SO_REUSE_RXTOALL				1
 
 /* Support Multicast */
 #define LWIP_IGMP                   1
@@ -186,6 +193,9 @@ extern unsigned int sys_now(void);
 
 /* Support TCP Keepalive */
 #define LWIP_TCP_KEEPALIVE				1
+#define TCP_KEEPIDLE_DEFAULT			10000UL
+#define TCP_KEEPINTVL_DEFAULT			1000UL
+#define TCP_KEEPCNT_DEFAULT				10U
 
 /*LWIP_UART_ADAPTER==1: Enable LWIP_UART_ADAPTER when CONFIG_GAGENT is enabled, 
    because some GAGENT functions denpond on the following macro definitions.*/
