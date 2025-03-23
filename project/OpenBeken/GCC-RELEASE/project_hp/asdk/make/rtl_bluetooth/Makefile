@@ -103,6 +103,7 @@ ifeq ($(CONFIG_BLE_TRANSFER_MODULE),y)
 	make -C ble_transfer_module all
 endif
 
+	make -C hci_driver all
 endif
 
 #*****************************************************************************#
@@ -200,6 +201,7 @@ endif
 ifeq ($(CONFIG_BLE_TRANSFER_MODULE),y)
 	make -C ble_transfer_module clean
 endif
+	make -C hci_driver clean
 
 endif
 

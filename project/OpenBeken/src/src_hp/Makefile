@@ -8,8 +8,13 @@ include $(MAKE_INCLUDE_GEN)
 DIR = $(BASEDIR)/../../src
 PLDIR = $(BASEDIR)/../../platforms/RTL8720D
 EFDIR = $(BASEDIR)/../../libraries
+BDIR = $(BASEDIR)/component/common/bluetooth/realtek
 
-MODULE_IFLAGS = -I$(DIR)/
+MODULE_IFLAGS += -I$(DIR)
+MODULE_IFLAGS += \
+	-I$(BDIR)/sdk/example/hci_driver/hci \
+	-I$(BDIR)/sdk/example/hci_driver/inc \
+	-I$(BDIR)/sdk/example/hci_driver/platform/amebad/inc
 
 
 vpath %.c $(DIR) $(PLDIR) $(EFDIR) $(shell find $(DIR) -type d) $(shell find $(EFDIR) -type d)

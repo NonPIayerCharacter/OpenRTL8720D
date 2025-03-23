@@ -342,15 +342,15 @@ GLOBAL_CFLAGS += -mcmse
 GLOBAL_CFLAGS += -mfloat-abi=hard
 GLOBAL_CFLAGS += -mfpu=fpv5-sp-d16
 
-GLOBAL_CFLAGS += -g
-GLOBAL_CFLAGS += -gdwarf-3
+GLOBAL_CFLAGS += -g0
+#GLOBAL_CFLAGS += -gdwarf-3
 GLOBAL_CFLAGS += -nostartfiles
 GLOBAL_CFLAGS += -nodefaultlibs
 GLOBAL_CFLAGS += -nostdlib
 GLOBAL_CFLAGS += -O2
 GLOBAL_CFLAGS += -D__FPU_PRESENT
 
-GLOBAL_CFLAGS += -gdwarf-3
+#GLOBAL_CFLAGS += -gdwarf-3
 GLOBAL_CFLAGS += -fstack-usage
 GLOBAL_CFLAGS += -fdata-sections
 GLOBAL_CFLAGS += -ffunction-sections
@@ -536,17 +536,20 @@ NETWORK_RENAME_CODE2SRAM:
 #*****************************************************************************#
 
 %.o:%.c
-	$(CC) $(GLOBAL_CFLAGS) $(MODULE_IFLAGS) $<  -o $@
+	@echo "build $@"
+	@$(CC) $(GLOBAL_CFLAGS) $(MODULE_IFLAGS) $<  -o $@
 
 #*****************************************************************************#
 #              RULES TO GENERATE OBJECT FILE FROM .CPP FILE                   #
 #*****************************************************************************#
 %.o:%.cpp
-	$(CC) -ffunction-sections $(CPPFLAGS) $(MODULE_IFLAGS) $< -o $@
+	@echo "build $@"
+	@$(CC) -ffunction-sections $(CPPFLAGS) $(MODULE_IFLAGS) $< -o $@
 
 #*****************************************************************************#
 #              RULES TO GENERATE OBJECT FILE FROM .S FILE                     #
 #*****************************************************************************#
 
 %.o:%.S
-	$(CC) $(ASM_FLAGS) $< -o $@
+	@echo "build $@"
+	@$(CC) $(ASM_FLAGS) $< -o $@

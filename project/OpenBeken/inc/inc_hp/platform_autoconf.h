@@ -102,8 +102,8 @@
 /*
  * < CONFIG BT 
  */
-#undef  CONFIG_BT_EN
-#undef  CONFIG_BT
+#define  CONFIG_BT_EN 1
+#define  CONFIG_BT 1
 #undef  CONFIG_BT_PERIPHERAL
 #undef  CONFIG_BT_CENTRAL
 #undef  CONFIG_BT_SCATTERNET
