@@ -7,4 +7,5 @@
 tools
 libsrc
 *.i
+*.ii
 *.map

@@ -10,9 +10,10 @@ PLDIR = $(BASEDIR)/../../platforms/RTL8720D
 EFDIR = $(BASEDIR)/../../libraries
 
 MODULE_IFLAGS = -I$(DIR)/
-
+OBJS =
 
 vpath %.c $(DIR) $(PLDIR) $(EFDIR) $(shell find $(DIR) -type d) $(shell find $(EFDIR) -type d)
+vpath %.cpp $(DIR) $(PLDIR) $(EFDIR) $(shell find $(DIR) -type d) $(shell find $(EFDIR) -type d)
 #*****************************************************************************#
 #                               Source FILE LIST                              #
 #*****************************************************************************#
@@ -21,7 +22,8 @@ vpath %.c $(DIR) $(PLDIR) $(EFDIR) $(shell find $(DIR) -type d) $(shell find $(E
 #*****************************************************************************#
 #                               Object FILE LIST                              #
 #*****************************************************************************#
-OBJS = $(notdir $(CSRC:.c=.o))
+OBJS += $(notdir $(CSRC:.c=.o))
+OBJS += $(notdir $(CPPSRC:.cpp=.o))
 
 #*****************************************************************************#
 #                        RULES TO GENERATE TARGETS                            #
