@@ -552,7 +552,7 @@ endif
 #*****************************************************************************#
 
 build_info.h:
-	@touch .ver
+#	@touch .ver
 #	@echo \#define UTS_VERSION \"`date +%Y/%m/%d-%T`\" > .ver
 #	@echo \#define RTL_FW_COMPILE_TIME \"`date +%Y/%m/%d-%T`\" >> .ver
 #	@echo \#define RTL_FW_COMPILE_DATE \"`date +%Y/%m/%d`\" >> .ver
@@ -570,7 +570,7 @@ build_info.h:
 #else
 #	@echo \#define RTL_FW_COMPILER \"`$(CC) $(CFLAGS) -v 2>&1 | tail -1`\" >> .ver
 #endif
-	@mv -f .ver $(INCDIR)/$@
+#	@mv -f .ver $(INCDIR)/$@
 
 
 #*****************************************************************************#

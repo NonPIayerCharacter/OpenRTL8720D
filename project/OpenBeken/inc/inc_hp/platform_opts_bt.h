@@ -3,7 +3,7 @@
 #include "platform_autoconf.h"
 
 #if defined CONFIG_BT && CONFIG_BT
-#define CONFIG_FTL_ENABLED
+//#define CONFIG_FTL_ENABLED
 #endif
 
 #if defined CONFIG_BT_SCATTERNET && CONFIG_BT_SCATTERNET

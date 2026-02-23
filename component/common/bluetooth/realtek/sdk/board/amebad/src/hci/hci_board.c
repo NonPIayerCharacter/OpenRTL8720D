@@ -312,23 +312,23 @@ uint8_t *hci_find_patch_address(void)
     hci_board_debug("\nWe use DEBUG VAL:0x%x\n", HAL_READ32(0x08000000, 0x3028));
     }
 
-    if(check_sw((int)EFUSE_SW_USE_FLASH_PATCH))
+    //if(check_sw((int)EFUSE_SW_USE_FLASH_PATCH))
     {
         //1
         return (uint8_t *)rltk_bt_get_patch_code();
     }
-    else if (ota_get_cur_index() == OTA_INDEX_1)
-    {
-        hci_board_debug("\nWe use BT ROM OTA2 PATCH ADDRESS:0x%x\n", MERGE_PATCH_ADDRESS_OTA2);
-        HCI_PRINT_INFO1("\nWe use BT ROM OTA2 PATCH ADDRESS:0x%x\n", MERGE_PATCH_ADDRESS_OTA2);
-        return (uint8_t *)MERGE_PATCH_ADDRESS_OTA2;
-    }
-    else
-    {
-        hci_board_debug("\nWe use BT ROM OTA1 PATCH ADDRESS:0x%x\n", MERGE_PATCH_ADDRESS_OTA1);
-        HCI_PRINT_INFO1("\nWe use BT ROM OTA1 PATCH ADDRESS:0x%x\n", MERGE_PATCH_ADDRESS_OTA1);
-        return (uint8_t *)MERGE_PATCH_ADDRESS_OTA1;
-    }
+    //else if (ota_get_cur_index() == OTA_INDEX_1)
+    //{
+    //    hci_board_debug("\nWe use BT ROM OTA2 PATCH ADDRESS:0x%x\n", MERGE_PATCH_ADDRESS_OTA2);
+    //    HCI_PRINT_INFO1("\nWe use BT ROM OTA2 PATCH ADDRESS:0x%x\n", MERGE_PATCH_ADDRESS_OTA2);
+    //    return (uint8_t *)MERGE_PATCH_ADDRESS_OTA2;
+    //}
+    //else
+    //{
+    //    hci_board_debug("\nWe use BT ROM OTA1 PATCH ADDRESS:0x%x\n", MERGE_PATCH_ADDRESS_OTA1);
+    //    HCI_PRINT_INFO1("\nWe use BT ROM OTA1 PATCH ADDRESS:0x%x\n", MERGE_PATCH_ADDRESS_OTA1);
+    //    return (uint8_t *)MERGE_PATCH_ADDRESS_OTA1;
+    //}
 }
 
 
@@ -730,11 +730,11 @@ bool hci_board_complete(void)
         return false;
     }
 
-    if(!check_sw((int)EFUSE_SW_UPPERSTACK_SWITCH))
-    {
-        hci_board_debug("Not Start upperStack, normal test\n");
-        return false;
-    }
+    //if(!check_sw((int)EFUSE_SW_UPPERSTACK_SWITCH))
+    //{
+    //    hci_board_debug("Not Start upperStack, normal test\n");
+    //    return false;
+    //}
 
     hci_board_debug("Start upperStack\n");
 
