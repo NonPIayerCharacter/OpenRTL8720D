@@ -40,7 +40,8 @@ CORE_TARGETS: $(OBJS)
 
 ifneq ($(CONFIG_MATTER_EN),y)
 %.o:%.c
-	$(CC) $(GLOBAL_CFLAGS) $(MODULE_IFLAGS) $<  -o $@
+	@echo "build $@"
+	@$(CC) $(GLOBAL_CFLAGS) $(MODULE_IFLAGS) $<  -o $@
 	$(FROMELF) --prefix-sections .image2.net.ram $@
 endif
 	

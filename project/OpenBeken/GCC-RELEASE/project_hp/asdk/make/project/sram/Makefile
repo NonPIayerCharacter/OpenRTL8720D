@@ -36,7 +36,8 @@ all: CORE_TARGETS COPY_RAM_OBJS
 CORE_TARGETS: $(OBJS)
 
 %.o:%.c
-	$(CC) $(GLOBAL_CFLAGS) $(MODULE_IFLAGS) $<  -o $@
+	@echo "build $@"
+	@$(CC) $(GLOBAL_CFLAGS) $(MODULE_IFLAGS) $<  -o $@
 	$(FROMELF) --prefix-sections .image2.ram $@
 	
 #*****************************************************************************#

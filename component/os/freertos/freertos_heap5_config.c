@@ -91,8 +91,8 @@
 #if (defined(configUSE_PSRAM_FOR_HEAP_REGION) && ( configUSE_PSRAM_FOR_HEAP_REGION == 1 ))
 #define configTOTAL_PSRAM_HEAP_SIZE 	(0x200000)
 		
-PSRAM_HEAP_SECTION 
-static unsigned char psRAMHeap[configTOTAL_PSRAM_HEAP_SIZE];
+//PSRAM_HEAP_SECTION 
+//static unsigned char psRAMHeap[configTOTAL_PSRAM_HEAP_SIZE];
 #endif
 
 #if defined (CONFIG_DYNAMIC_HEAP_SIZE) && (CONFIG_DYNAMIC_HEAP_SIZE == 1)
@@ -113,7 +113,7 @@ static unsigned char psRAMHeap[configTOTAL_PSRAM_HEAP_SIZE];
         { (uint8_t*)0x00080A00, 0x1600 },   // KM0 ROM BSS just used RAM befor 0x000809ce
 #endif
 #if (defined(configUSE_PSRAM_FOR_HEAP_REGION) && ( configUSE_PSRAM_FOR_HEAP_REGION == 1 ))
-		{ psRAMHeap, sizeof(psRAMHeap) },
+		{ 0, 0 },
 #endif
         { 0, 0 },     // Defines a block from ucHeap
         { NULL, 0 }                     // Terminates the array.
@@ -134,7 +134,7 @@ static unsigned char psRAMHeap[configTOTAL_PSRAM_HEAP_SIZE];
         { (uint8_t*)0x00080A00, 0x1600 },   // KM0 ROM BSS just used RAM befor 0x000809ce
 #endif
 #if (defined(configUSE_PSRAM_FOR_HEAP_REGION) && ( configUSE_PSRAM_FOR_HEAP_REGION == 1 ))
-		{ psRAMHeap, sizeof(psRAMHeap) },
+		{ 0, 0 },
 #endif
         { 0, 0 },     // Defines a block from ucHeap
         { NULL, 0 }                     // Terminates the array.
@@ -233,8 +233,15 @@ void os_heap_init(void)
 #if defined (CONFIG_DYNAMIC_HEAP_SIZE) && (CONFIG_DYNAMIC_HEAP_SIZE == 1)
 
 #if (defined(configUSE_PSRAM_FOR_HEAP_REGION) && ( configUSE_PSRAM_FOR_HEAP_REGION == 1 ))
-		xHeapRegions[ 1 ].xSizeInBytes = configTOTAL_HEAP0_SIZE;
-        xHeapRegions[ 1 ].pucStartAddress = (uint8_t*)HEAP0_START;
+		xHeapRegions[ 0 ].xSizeInBytes = configTOTAL_HEAP0_SIZE;
+        xHeapRegions[ 0 ].pucStartAddress = (uint8_t*)HEAP0_START;
+		if(psram_dev_config.psram_dev_enable == TRUE)
+		{
+			xHeapRegions[0].xSizeInBytes = 0x02400000 - 0x02000000 - 0x20;
+			xHeapRegions[0].pucStartAddress = 0x02000000 + 0x20;
+			xHeapRegions[1].xSizeInBytes = configTOTAL_HEAP0_SIZE;
+			xHeapRegions[1].pucStartAddress = (uint8_t*)HEAP0_START;
+		}
 #else
 	    xHeapRegions[ 0 ].xSizeInBytes = configTOTAL_HEAP0_SIZE;
         xHeapRegions[ 0 ].pucStartAddress = (uint8_t*)HEAP0_START;

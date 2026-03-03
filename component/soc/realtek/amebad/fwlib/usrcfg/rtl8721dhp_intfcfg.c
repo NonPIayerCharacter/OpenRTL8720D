@@ -20,7 +20,7 @@
 #include "ameba_soc.h"
 #include "autoconf.h"
 
-
+IMAGE2_RAM_TEXT_SECTION
 PSRAMCFG_TypeDef psram_dev_config = {
 #if (defined(CONFIG_REPEATER) && CONFIG_REPEATER) || \
 	((defined(CONFIG_MATTER_SECURE) && CONFIG_MATTER_SECURE))
@@ -28,8 +28,13 @@ PSRAMCFG_TypeDef psram_dev_config = {
 	.psram_dev_cal_enable = TRUE,			//enable psram calibration function
 	.psram_dev_retention = TRUE,			//enable psram retention
 #else
+#if 1//RTLD_HAS_PSRAM
+	.psram_dev_enable = TRUE,			//enable psram
+	.psram_dev_cal_enable = TRUE,			//enable psram calibration function
+#else
 	.psram_dev_enable = FALSE,			//enable psram
 	.psram_dev_cal_enable = FALSE,			//enable psram calibration function
+#endif
 	.psram_dev_retention = FALSE,			//enable psram retention	
 #endif
 };

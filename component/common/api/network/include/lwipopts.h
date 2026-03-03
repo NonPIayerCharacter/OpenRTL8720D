@@ -31,8 +31,8 @@ extern "C" {
 #define LWIP_COMPAT_MUTEX       1
 
 #define ETHARP_TRUST_IP_MAC     0
-#define IP_REASSEMBLY           0
-#define IP_FRAG                 0
+#define IP_REASSEMBLY           1
+#define IP_FRAG                 1
 #define ARP_QUEUEING            0
 
 /**
@@ -51,8 +51,8 @@ extern "C" {
    byte alignment -> define MEM_ALIGNMENT to 2. */
 #define MEM_ALIGNMENT           4
 
-#define MAX_SOCKETS_TCP                 8
-#define MAX_LISTENING_SOCKETS_TCP       4
+#define MAX_SOCKETS_TCP                 10
+#define MAX_LISTENING_SOCKETS_TCP       6
 #define MAX_SOCKETS_UDP                 4
 /* MEM_SIZE: the size of the heap memory. If the application will send
 a lot of data that needs to be copied, this should be set high. */

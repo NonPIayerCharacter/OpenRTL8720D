@@ -307,11 +307,13 @@ u32 app_psram_resume(u32 expected_idle_time, void *param)
 
 void app_init_psram(void)
 {
+	u32 orig;
 	u32 temp;
 	PCTL_InitTypeDef  PCTL_InitStruct;
 
 	/*set rwds pull down*/
 	temp = HAL_READ32(PINMUX_REG_BASE, 0x104);
+	orig = temp;
 	temp &= ~(PAD_BIT_PULL_UP_RESISTOR_EN | PAD_BIT_PULL_DOWN_RESISTOR_EN);
 	temp |= PAD_BIT_PULL_DOWN_RESISTOR_EN;
 	HAL_WRITE32(PINMUX_REG_BASE, 0x104, temp);
@@ -323,7 +325,18 @@ void app_init_psram(void)
 
 	/*check psram valid*/
 	HAL_WRITE32(PSRAM_BASE, 0, 0);
-	assert_param(0 == HAL_READ32(PSRAM_BASE, 0));
+	//assert_param(0 == HAL_READ32(PSRAM_BASE, 0));
+	if(0 != HAL_READ32(PSRAM_BASE, 0))
+	{
+		DBG_PRINTF(MODULE_BOOT, LEVEL_INFO, "PSRAM Not detected\n");
+		psram_dev_config.psram_dev_enable = FALSE;
+		psram_dev_config.psram_dev_cal_enable = FALSE;
+		temp = HAL_READ32(SYSTEM_CTRL_BASE_LP, REG_AON_LDO_CTRL1);
+		temp &= ~(BIT_LDO_PSRAM_EN);
+		HAL_WRITE32(SYSTEM_CTRL_BASE_LP, REG_AON_LDO_CTRL1, temp);
+		HAL_WRITE32(PINMUX_REG_BASE, 0x104, orig);
+		return;
+	}
 
 	if(_FALSE == PSRAM_calibration())
 		return;
@@ -430,7 +443,7 @@ void app_start(void)
 	/* configure FreeRTOS interrupt and heap region */
 #if (defined(configUSE_PSRAM_FOR_HEAP_REGION) && ( configUSE_PSRAM_FOR_HEAP_REGION == 1 ))
 	/* psram should be enabled */
-	assert_param(TRUE == psram_dev_config.psram_dev_enable);
+	//assert_param(TRUE == psram_dev_config.psram_dev_enable);
 #endif
 	os_heap_init();
 	__NVIC_SetVector(SVCall_IRQn, (u32)(VOID*)vPortSVCHandler);

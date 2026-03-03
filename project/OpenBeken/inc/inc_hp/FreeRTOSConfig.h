@@ -92,7 +92,11 @@ extern uint32_t SystemCoreClock;
 #define  CONFIG_DYNAMIC_HEAP_SIZE                       1
 
 /* Configure PSRAM usage. Set 0 to default, set 1 to include psram into heap. */
+#if 1// RTLD_HAS_PSRAM
+#define configUSE_PSRAM_FOR_HEAP_REGION					1
+#else
 #define configUSE_PSRAM_FOR_HEAP_REGION					0
+#endif
 /*configure for audio use sram , Set 0 to default, set 1 to include enable sram*/
 #define configAUDIO_USE_SRAM_FOR_HEAP_REGION                            0
 
